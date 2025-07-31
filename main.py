@@ -34,6 +34,8 @@ def load_logs(file_paths, filter_date=None):
                             ts = datetime.fromisoformat(record["@timestamp"])
                             if ts.date() != filter_date:
                                 continue
+                        # Validate response_time can be converted to float
+                        _ = float(record["response_time"])
                         logs.append(record)
                     except (json.JSONDecodeError, KeyError, ValueError):
                         print(
